@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'role',
         'location',
         'about_me',
     ];
@@ -44,5 +46,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
+    public function campaign_request()
+    {
+        return $this->hasMany('App\Models\CampaignRequest', 'userid', 'id');
+    }
+
+    public function campaigns()
+    {
+        return $this->hasMany('App\Models\Campaign', 'userid', 'id');
+    }
+
 }

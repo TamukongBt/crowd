@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\DonationController;
+use App\Http\Controllers\InfoUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
+//     // Route::apiResource('donation', DonationController::class)->name('donation', 'donation');
+//     Route::post('transfer', [DonationController::class,'starttrans']);
+
+// });
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('transfer', [App\Http\Controllers\Api\DonationController::class,'starttrans']);
 });
+
+
+
+Route::post("login",[InfoUserController::class,'index']);
+
+
+
